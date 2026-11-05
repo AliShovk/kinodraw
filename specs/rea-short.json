@@ -1,0 +1,76 @@
+{
+ "mode": "short",
+ "narrator": "narrator",
+ "title": "REA",
+ "subtitle": "реверс приложений",
+ "hook": "Инструмент вскрывает чужое приложение по просьбе агента.",
+ "closing": "Реверс по просьбе агента.",
+ "chapters": [
+  {
+   "title": "REA",
+   "take": "лицензия MIT",
+   "take_value": "MIT",
+   "take_label": "открытый код",
+   "blocks": [
+    {
+     "text": "Ставится как MCP-сервер и подключается к агенту одной строкой.",
+     "visuals": [
+      {
+       "type": "flow",
+       "layout": "chain",
+       "title": {
+        "en": "как подключается"
+       },
+       "nodes": [
+        {
+         "id": "a",
+         "doodle": "robot",
+         "label": {
+          "en": "агент"
+         }
+        },
+        {
+         "id": "b",
+         "doodle": "shield",
+         "label": {
+          "en": "MCP"
+         }
+        },
+        {
+         "id": "c",
+         "doodle": "laptop",
+         "label": {
+          "en": "приложение"
+         }
+        }
+       ],
+       "edges": [
+        {
+         "from": "a",
+         "to": "b"
+        },
+        {
+         "from": "b",
+         "to": "c"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "text": "На разборе одной сборки — четыре тысячи шестьсот семьдесят девять находок.",
+     "visuals": [
+      {
+       "id": "database",
+       "label": "4 679 находок"
+      },
+      {
+       "id": "key_lock",
+       "label": "доказательства"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -130,6 +130,8 @@ def narrate(project_dir: Path, progress=None, server: voice_server.Server | None
     the CLI's, never the project's), which reads the beats instead of Kokoro unless the project uses a recording; the
     project then records its model and voice. A project that records a server voice is never narrated without one."""
     project_dir = Path(project_dir)
+    if server is None and (env := voice_server.from_env()):
+        server = voice_server.Server(**env)       # локальная правка: TTS_* из окружения
     cfg, board = settings(project_dir), storyboard(project_dir)
     lang = cfg['lang']
     lexicon = voice.read_lexicon(project_dir / PRONOUNCE)

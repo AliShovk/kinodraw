@@ -1,0 +1,92 @@
+{
+ "mode": "short",
+ "narrator": "narrator",
+ "title": "Junie",
+ "subtitle": "агент в IDE",
+ "hook": "Агент работает прямо в вашей IDE и видит проект целиком.",
+ "closing": "Агент в вашей IDE.",
+ "chapters": [
+  {
+   "title": "Junie",
+   "take": "внутри JetBrains AI",
+   "take_value": "IDE",
+   "take_label": "а не отдельное окно",
+   "blocks": [
+    {
+     "text": "Он понимает структуру проекта, а не только открытый файл.",
+     "visuals": [
+      {
+       "type": "split",
+       "title": {
+        "en": "видит проект целиком"
+       },
+       "left": {
+        "who": {
+         "en": "Junie"
+        },
+        "text": {
+         "en": "весь проект"
+        },
+        "doodle": "code_window"
+       },
+       "right": {
+        "who": {
+         "en": "чат"
+        },
+        "text": {
+         "en": "один файл"
+        },
+        "doodle": "speech_bubbles"
+       }
+      }
+     ]
+    },
+    {
+     "text": "Правит код, прогоняет тесты и готовит pull request.",
+     "visuals": [
+      {
+       "type": "flow",
+       "layout": "chain",
+       "title": {
+        "en": "что делает сам"
+       },
+       "nodes": [
+        {
+         "id": "a",
+         "doodle": "code_window",
+         "label": {
+          "en": "правка"
+         }
+        },
+        {
+         "id": "b",
+         "doodle": "bullseye",
+         "label": {
+          "en": "тесты"
+         }
+        },
+        {
+         "id": "c",
+         "doodle": "key_lock",
+         "label": {
+          "en": "pull request"
+         }
+        }
+       ],
+       "edges": [
+        {
+         "from": "a",
+         "to": "b"
+        },
+        {
+         "from": "b",
+         "to": "c"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

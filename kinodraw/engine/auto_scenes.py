@@ -254,7 +254,7 @@ def build_end_card(ctx, x0, t):
     return els
 
 
-CREDIT_LINE = {'en': 'Made with {name}', 'zh': '由 {name} 制作', 'es': 'Hecho con {name}'}
+CREDIT_LINE = {'en': 'Подробнее на сайте — {name}', 'zh': '由 {name} 制作', 'es': 'Hecho con {name}'}
 
 
 def build_credit(ctx, x0, t):
@@ -361,19 +361,30 @@ def build_title_board_portrait(ctx, beat, x0, t):
     left, y, _, _ = g.text_safe[0]
     width, bottom = g.cell_w, g.text_safe[1][3]
     title = _portrait_title(ctx, ctx.T(ep.get('title')), 110, width)
-    els = [ctx.add(title, x0 + left, y, t)]
+    els = [ctx.add(title, x0 + left, y, t, hand=False)]   # хук виден с первого кадра
     tw = title.size[0]
     und = ctx.strokes((tw, 30), [[(6 + i * (tw - 12) / 30, 12 + 5 * math.sin(i / 2.5)) for i in range(31)]],
                       color=ink.SECTION_COLORS['orange'], width=9, max_dur=.8)
     els.append(ctx.add(und, x0 + left, y + title.size[1] - 4, t))
-    y += title.size[1] + 40
+    y += title.size[1] + 78
     for key, size, color in (('subtitle', 60, ink.SECTION_COLORS['blue']), ('byline', 44, SOFT_INK)):
         if ep.get(key):
             text = _portrait_text(ctx, ctx.T(ep[key]), size, width, lines=2, min_size=size, color=color)
-            els.append(ctx.add(text, x0 + left, y, t))
+            els.append(ctx.add(text, x0 + left, y, t, hand=False))
             y += text.size[1] + 20
     host, y = _portrait_host(ctx, ep.get('host') or {}, x0, y, t)
     els += host
+    logo = ep.get('logo')
+    if logo and ctx.project_dir:
+        from PIL import Image
+        path = Path(ctx.project_dir) / logo
+        if path.is_file():
+            im = Image.open(path).convert('RGBA')
+            im.thumbnail((560, 260))
+            els.append(ctx.add(ink.StaticDrawing(im, pop=.4),
+                               x0 + left + (width - im.width) / 2,
+                               min(y + 110, max(0, bottom - im.height - 10)), t, hand=False))
+            return els
     wave = narrator(ep, 'wave')
     if wave and y + 390 <= bottom:
         els.append(ctx.add(ctx.doodle(wave, (260, 390)), x0 + left + (width - 260) / 2, y, t))
@@ -514,9 +525,9 @@ def build_credit_portrait(ctx, x0, t):
     from .. import PRODUCT
     g = ctx.layout.g
     left, y, right, bottom = g.caption_band
-    made = _portrait_text(ctx, CREDIT_LINE[ctx.lang].format(**PRODUCT), 44, right - left,
-                          lines=2, min_size=44, color=SOFT_INK, pace=1.6)
-    url = ink.TextDrawing([PRODUCT['url']], 'en', 34, color=SOFT_INK, pace=2.5, max_dur=.6, fonts=ctx.fonts)
+    made = _portrait_text(ctx, CREDIT_LINE[ctx.lang].format(**PRODUCT), 52, right - left,
+                          lines=2, min_size=52, color=SOFT_INK, pace=1.6)
+    url = ink.TextDrawing([PRODUCT['url']], 'en', 64, color=ink.INK, pace=2.5, max_dur=.6, fonts=ctx.fonts)
     y += (bottom - y - made.size[1] - url.size[1]) / 2
     center = g.size[0] / 2
     return [ctx.add(made, x0 + center - made.size[0] / 2, y, t),

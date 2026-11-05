@@ -574,7 +574,9 @@ class Production:
 
     def _zoom(self, t, p, a, b):
         u = (t - a) / (b - a)
-        card = self.cards[p['section']]
+        card = self.cards.get(p['section'])
+        if card is None:                      # в коротком формате агенды нет — едем без наезда
+            return self.view(t, self.agenda_x or self.pages.get(p['section'], 0), hand=False)
         cx = card['box'][0] - self.agenda_x + card['box'][2] / 2
         cy = card['box'][1] + card['box'][3] / 2
         agenda = self.view(a - .01, self.agenda_x, hand=False)

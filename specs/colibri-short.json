@@ -1,0 +1,47 @@
+{
+ "mode": "short",
+ "no_take": true,
+ "narrator": "narrator",
+ "logo": "logo.png",
+ "title": "Colibri",
+ "subtitle": "движок для MoE",
+ "hook": "Модель на два и восемь десятых триллиона параметров — на домашнем железе.",
+ "closing": "Colibri запускает то, что раньше не влезало.",
+ "chapters": [
+  {
+   "title": "Colibri",
+   "blocks": [
+    {
+     "text": "Colibri — движок вывода для больших MoE-моделей, написанный на чистом C. Горячие эксперты он держит на видеокарте, тёплые в оперативной памяти, холодные читает с NVMe. Уже 47 945 звёзд на GitHub и 13 движков моделей.",
+     "visuals": [
+      {"type": "flow", "layout": "chain", "title": {"en": "три уровня памяти"},
+       "nodes": [
+        {"id": "a", "doodle": "gpu_rack", "label": {"en": "GPU"}},
+        {"id": "b", "doodle": "memory_chip", "label": {"en": "RAM"}},
+        {"id": "c", "doodle": "database", "label": {"en": "NVMe"}}
+       ],
+       "edges": [{"from": "a", "to": "b"}, {"from": "b", "to": "c"}]}
+     ]
+    },
+    {
+     "text": "GLM-5.2 на 744 миллиарда параметров идёт на ноутбуке с 24 ГБ памяти — но всего 0,05 токена в секунду. На шести RTX 5090 та же модель выдаёт 9,2 токена в секунду, а Kimi K3 на 2,8 триллиона занимает 1,56 терабайта диска.",
+     "visuals": [
+      {"type": "bars", "title": {"en": "GLM-5.2, токенов в секунду"},
+       "groups": [
+        {"label": {"en": "ноутбук 25 ГБ"}, "rows": [{"label": {"en": "холодный старт"}, "value": 0.1, "display": {"en": "0,1"}}]},
+        {"label": {"en": "128 ГБ RAM"}, "rows": [{"label": {"en": "тёплый"}, "value": 1.83, "display": {"en": "1,83"}}]},
+        {"label": {"en": "6×RTX 5090"}, "rows": [{"label": {"en": "всё в памяти"}, "value": 9.2, "display": {"en": "9,2"}}]}
+       ]}
+     ]
+    },
+    {
+     "text": "Ставится одним скриптом start-here.sh: он сам смотрит на память и диск и собирает движок. Дальше coli serve поднимает сервер, совместимый с OpenAI и Anthropic, — к нему подключаются Cline, Continue и Claude Code.",
+     "visuals": [
+      {"id": "code_window", "label": "coli serve"},
+      {"id": "key_lock", "label": "OpenAI и Anthropic"}
+     ]
+    }
+   ]
+  }
+ ]
+}

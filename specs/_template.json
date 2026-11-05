@@ -1,0 +1,42 @@
+{
+ "mode": "short",
+ "no_take": true,
+ "narrator": "narrator",
+ "logo": "logo.png",
+ "title": "Название",
+ "subtitle": "коротко",
+ "hook": "Фраза-хук на 1 секунду.",
+ "closing": "Фраза-хук на 1 секунду.",
+ "chapters": [
+  {
+   "title": "Название",
+   "blocks": [
+    {
+     "text": "Часть 1: что это и зачем. 40–45 слов, факты из обзора.",
+     "visuals": [
+      {"type": "flow", "layout": "chain", "title": {"en": "как устроено"},
+       "nodes": [
+        {"id": "a", "doodle": "database", "label": {"en": "модель"}},
+        {"id": "b", "doodle": "memory_chip", "label": {"en": "железо"}},
+        {"id": "c", "doodle": "laptop", "label": {"en": "вы"}}
+       ],
+       "edges": [{"from": "a", "to": "b"}, {"from": "b", "to": "c"}]}
+     ]
+    },
+    {
+     "text": "Часть 2: как работает на практике. 40–45 слов.",
+     "visuals": [
+      {"id": "speech_bubbles", "label": "чат"},
+      {"id": "gpu_rack", "label": "видеокарта"}
+     ]
+    },
+    {
+     "text": "Часть 3: ограничения и вывод. 40–45 слов.",
+     "visuals": [
+      {"type": "stat", "value": {"en": "4,8 ТБ"}, "label": {"en": "нужно памяти"}}
+     ]
+    }
+   ]
+  }
+ ]
+}

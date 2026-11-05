@@ -114,7 +114,7 @@ class PortraitFrame:
         if key[0] == 'title':
             label, title, color = None, (self.ep.get('title') or {}).get(lang, ''), None
             source = None
-            size, lines_max = 92, 3
+            size, lines_max = (68 if self.native else 92), 3
         else:
             ch = next(c for c in self.ep['chapters'] if c['id'] == key[1])
             label = (ch.get('label') or {}).get(lang) if ch['kind'] == 'section' else None

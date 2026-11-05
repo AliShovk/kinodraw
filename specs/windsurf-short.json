@@ -1,0 +1,43 @@
+{
+ "mode": "short",
+ "no_take": true,
+ "narrator": "narrator",
+ "logo": "logo.png",
+ "title": "Windsurf",
+ "subtitle": "AI-редактор",
+ "hook": "Агент правит сразу несколько файлов в вашем проекте.",
+ "closing": "Агент правит несколько файлов сразу.",
+ "chapters": [
+  {
+   "title": "Windsurf",
+   "blocks": [
+    {
+     "text": "Windsurf — редактор кода от Codeium, теперь в составе Cognition. Агент Cascade видит проект целиком: индексы, зависимости, структуру папок, а не только открытый файл.",
+     "visuals": [
+      {"type": "flow", "layout": "chain", "title": {"en": "как работает Cascade"},
+       "nodes": [
+        {"id": "a", "doodle": "database", "label": {"en": "проект"}},
+        {"id": "b", "doodle": "robot", "label": {"en": "Cascade"}},
+        {"id": "c", "doodle": "code_window", "label": {"en": "правки"}}
+       ],
+       "edges": [{"from": "a", "to": "b"}, {"from": "b", "to": "c"}]}
+     ]
+    },
+    {
+     "text": "Он меняет несколько файлов за одну задачу, запускает команды в терминале и показывает диффы до применения.",
+     "visuals": [
+      {"id": "code_window", "label": "несколько файлов"},
+      {"id": "key_lock", "label": "диффы"}
+     ]
+    },
+    {
+     "text": "Ставится на Windows, macOS и Linux. Бесплатный тариф есть, но премиум-запросы в нём ограничены — на активной работе лимит упирается за день.",
+     "visuals": [
+      {"id": "laptop", "label": "три системы"},
+      {"id": "chart_up", "label": "лимит запросов"}
+     ]
+    }
+   ]
+  }
+ ]
+}

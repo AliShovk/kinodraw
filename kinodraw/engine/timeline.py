@@ -58,7 +58,7 @@ def layout(episode, lang, clips, pauses=None, credit=True):
     for i, beat in enumerate(beats):
         clip = clips[beat['id']]
         take = beat.get('kind') == 'take' and chapters[beat['chapter']]['kind'] == 'section'
-        prep = cursor
+        prep = max(0.0, cursor - 1.8)      # начинаем рисовать до реплики, чтобы кадр не отставал
         start = cursor + (TAKE_PREROLL if take else 0.)
         speech_end = start + clip['speech']
         end = speech_end + (ZH_DWELL if lang == 'zh' else 0.) + float(pauses.get(beat['id'], 0.))
