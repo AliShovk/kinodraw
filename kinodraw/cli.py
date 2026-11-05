@@ -187,6 +187,27 @@ def _report(report):
         print('  ·', note)
 
 
+def cmd_plan(args):
+    """KinoDraw 2.0: article -> storyboard with an AI director plan."""
+    from .director import build
+    project = Path(args.project)
+    project.mkdir(parents=True, exist_ok=True)
+    cfg_path = project / 'project.json'
+    if not cfg_path.exists():
+        cfg_path.write_text(json.dumps({'script': 'script.md', 'lang': args.lang, 'voice': 'af_heart',
+                                        'speed': 1.0, 'director': 'rules', 'workers': 2,
+                                        'aspect': args.aspect, 'credit': True}, ensure_ascii=False, indent=1),
+                            encoding='utf-8')
+    article = Path(args.article).read_text(encoding='utf-8')
+    board = build.write_storyboard(article, project, title=args.title or '', duration=args.duration,
+                                   aspect=args.aspect, concept=args.concept, structure=args.structure,
+                                   language=args.lang)
+    d = board['director']
+    print(f"концепция: {d['concept']} · структура: {d['narrative_structure']} · сцен: {len(board['scenes'])}")
+    for sc in board['scenes']:
+        print(f"  {sc['id']} {sc['role']:<12} {sc['type']:<16} {sc['duration']:>5}s  {sc['text'][:60]}")
+
+
 def cmd_direct(args):
     from . import director
     _report(director.direct(Path(args.project), args.mode, args.model, args.base_url, _progress))
@@ -353,6 +374,16 @@ def main(argv=None):
         p.add_argument('--model')
         p.add_argument('--base-url')
         p.set_defaults(func=fn)
+    p = sub.add_parser('plan')
+    p.add_argument('article')
+    p.add_argument('project')
+    p.add_argument('--title', default='')
+    p.add_argument('--duration', type=float, default=55)
+    p.add_argument('--aspect', default='9:16', choices=('16:9', '9:16'))
+    p.add_argument('--concept', default=None)
+    p.add_argument('--structure', default=None)
+    p.add_argument('--lang', default='ru')
+    p.set_defaults(func=cmd_plan)
     p = sub.add_parser('direct')
     p.add_argument('project')
     p.add_argument('--mode', default='rules', choices=MODES)

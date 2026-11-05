@@ -35,6 +35,11 @@ TEXT = {
            'agenda_last': 'Y por último: {t}', 'label': 'Parte {n}', 'closing': '¡Gracias por ver!',
            'intro_label': 'Introducción', 'outro_label': 'Cierre', 'agenda_label': 'Lo que veremos',
            'opener': '{label}: {title}', 'take': 'Idea clave: {h}'},
+    'ru': {'intro': 'Сегодня: {title}', 'agenda_first': 'Что разберём. Первое: {t}',
+           'agenda_mid': ['Второе: {t}', 'Третье: {t}', 'Четвёртое: {t}', 'Пятое: {t}'],
+           'agenda_last': 'И в конце: {t}', 'label': 'Часть {n}', 'closing': 'Спасибо за просмотр!',
+           'intro_label': 'Начало', 'outro_label': 'Итог', 'agenda_label': 'Что разберём',
+           'opener': '{label}: {title}', 'take': 'Главное: {h}'},
     'zh': {'intro': '今天的主题：{title}', 'agenda_first': '本期我们聊{n}件事。第一，{t}',
            'agenda_mid': ['第二，{t}', '第三，{t}', '第四，{t}', '第五，{t}', '第六，{t}', '第七，{t}'],
            'agenda_last': '最后，{t}', 'label': '第{n}部分', 'closing': '感谢收看！',
@@ -45,7 +50,7 @@ ZH_NUM = '零一二三四五六七八九十'
 
 
 def size(text: str, lang: str) -> int:
-    return len(text.split()) if lang in ('en', 'es') else len(re.findall(r'[一-鿿]', text))
+    return len(text.split()) if lang in ('en', 'es', 'ru') else len(re.findall(r'[一-鿿]', text))
 
 
 def sentences(paragraph: str, lang: str) -> list[str]:

@@ -44,6 +44,8 @@ FILES = {       # name: (url, sha256, bytes)
 LANGS = {
     'en': {'model': 'kokoro-v1.0.fp16.onnx', 'voices': 'voices-v1.0.bin', 'config': None, 'voice': 'af_heart'},
     'es': {'model': 'kokoro-v1.0.fp16.onnx', 'voices': 'voices-v1.0.bin', 'config': None, 'voice': 'ef_dora'},
+    # русского голоса у Kokoro нет: язык читается своим сервером, а этот вход — запасной (английская модель)
+    'ru': {'model': 'kokoro-v1.0.fp16.onnx', 'voices': 'voices-v1.0.bin', 'config': None, 'voice': 'af_heart'},
     'zh': {'model': 'kokoro-v1.1-zh.fp16.onnx', 'voices': 'voices-v1.1-zh.bin', 'config': 'config-v1.1-zh.json',
            'voice': 'zf_001'},
 }
@@ -59,7 +61,7 @@ SPEEDS = (0.85, 1.15)
 SR = 24000
 GAP = .4                 # silence after each beat
 VERSION = 1              # bump when synthesis or alignment changes (invalidates cached clips)
-CLAUSE = {'en': ',.;:?!—', 'zh': '，。；：？！、—', 'es': ',.;:?!—'}
+CLAUSE = {'en': ',.;:?!—', 'zh': '，。；：？！、—', 'es': ',.;:?!—', 'ru': ',.;:?!—'}
 PHONE_MARKS = ',.;:?!—…'
 NOT_SOUNDS = set(' ˈˌːʲ')
 

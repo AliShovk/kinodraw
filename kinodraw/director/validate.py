@@ -16,7 +16,11 @@ from .annotate import ROLES, SCENES, _words
 
 SLOT_TYPES = {'cluster', 'quote', 'glossary', 'stat'}
 PAGE_TYPES = {'ladder', 'bars', 'coins', 'grid100', 'lanes', 'range', 'zones', 'levels', 'table', 'dial', 'flow',
-              'split', 'calendar'}
+              'split', 'calendar',
+              # KinoDraw 2.0 media scenes
+              'browser_window', 'phone_mockup', 'image_gallery', 'before_after', 'hero_reveal',
+              'product_showcase', 'spotlight', 'pros_cons', 'rating_scene', 'final_verdict',
+              'data_flow', 'feature_explosion'}
 OTHER_TYPES = {'emphasis', 'stock'}
 EN_PUNCT = re.compile(r'[,.;:?!](?=\s|$|["”’)])|—')
 ES_PUNCT = re.compile(r'[,.;:?!](?=\s|$|["”’»)])|—')
@@ -104,8 +108,8 @@ def _doodles(value):
 def validate(board: dict, project_dir: Path | None = None) -> dict:
     lang = board.get('lang')
     errors, warnings = [], []
-    if lang not in ('en', 'zh', 'es'):
-        return {'ok': False, 'errors': [f'lang must be en, zh or es, got {lang!r}'], 'warnings': []}
+    if lang not in ('en', 'zh', 'es', 'ru'):
+        return {'ok': False, 'errors': [f'lang must be en, zh, es or ru, got {lang!r}'], 'warnings': []}
     for dial, values in DIALS.items():
         if dial in board and board[dial] not in values:
             errors.append(f'{dial} must be one of {", ".join(values)}, got {board[dial]!r}')

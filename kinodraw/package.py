@@ -44,7 +44,7 @@ def _esc(text) -> str:
 
 
 def mux(tl: dict, silent: Path, mix: Path, output: Path, lang: str, title: str, build: Path):
-    iso = {'en': 'eng', 'zh': 'zho', 'es': 'spa'}[lang]
+    iso = {'en': 'eng', 'zh': 'zho', 'es': 'spa', 'ru': 'rus'}[lang]
     lines = [';FFMETADATA1', f'title={_esc(title)}', f'encoder={PRODUCT["name"]}', f'language={iso}']
     for c in tl['chapters']:
         lines += ['[CHAPTER]', 'TIMEBASE=1/1000', f"START={round(c['start'] * 1000)}", f"END={round(c['end'] * 1000)}",

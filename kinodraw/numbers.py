@@ -354,8 +354,48 @@ def normalize_zh(display: str) -> Normalized:
     return _rewrite(display, ZH_PATTERN, _zh_speak)
 
 
+
+RU_UNITS = {'%': ('процент', 'процента', 'процентов'), '₽': ('рубль', 'рубля', 'рублей'),
+            '$': ('доллар', 'доллара', 'долларов'), '€': ('евро', 'евро', 'евро'),
+            'ГБ': ('гигабайт', 'гигабайта', 'гигабайт'), 'ТБ': ('терабайт', 'терабайта', 'терабайт')}
+
+
+def _ru_plural(n, forms):
+    n = abs(int(n)) % 100
+    if 11 <= n <= 14:
+        return forms[2]
+    n %= 10
+    return forms[0] if n == 1 else forms[1] if 2 <= n <= 4 else forms[2]
+
+
+RU_TOKEN = re.compile(r'(\d[\d\s]*(?:[.,]\d+)?)\s*(%|₽|\$|€|ГБ|ТБ)?')
+
+
+def normalize_ru(display: str) -> Normalized:
+    """Russian numbers: 25% -> «двадцать пять процентов», 1 500 ₽ -> «тысяча пятьсот рублей»."""
+    out, spans, last = [], [], 0
+    for m in RU_TOKEN.finditer(display):
+        raw, unit = m.group(1).strip(), m.group(2)
+        try:
+            value = float(raw.replace(' ', '').replace(',', '.'))
+        except ValueError:
+            continue
+        words = num2words(value if value != int(value) else int(value), lang='ru')
+        if unit:
+            words += ' ' + _ru_plural(value, RU_UNITS[unit])
+        start = len(''.join(out)) + (m.start() - last)
+        out.append(display[last:m.start()])
+        s0 = len(''.join(out))
+        out.append(words)
+        spans.append((m.start(), m.end(), s0, s0 + len(words)))
+        last = m.end()
+    out.append(display[last:])
+    return Normalized(display, ''.join(out), spans)
+
 def normalize(display: str, lang: str) -> Normalized:
     if lang == 'es':
         return normalize_es(display)
+    if lang == 'ru':
+        return normalize_ru(display)
     return normalize_en(display) if lang == 'en' else normalize_zh(display)
 

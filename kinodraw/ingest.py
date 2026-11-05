@@ -27,7 +27,7 @@ class Section:
 @dataclass
 class Document:
     title: str
-    lang: str                                   # 'en', 'zh' or 'es'
+    lang: str                                   # 'en', 'zh', 'es' or 'ru'
     preamble: list[str] = field(default_factory=list)
     sections: list[Section] = field(default_factory=list)
 
@@ -36,6 +36,9 @@ def detect_lang(text: str) -> str:
     letters = [c for c in text if c.isalpha()]
     if letters and sum(bool(CJK.match(c)) for c in letters) / len(letters) > .3:
         return 'zh'
+    cyr = sum('\u0400' <= c <= '\u04FF' for c in letters)
+    if letters and cyr / len(letters) > .4:
+        return 'ru'
     words = re.findall(r'[^\W\d_]+', text)
     spanish = set('el la los las de del que y en un una es por con para se no su al lo como más pero sus le ya o '
                   'este esta son también'.split())

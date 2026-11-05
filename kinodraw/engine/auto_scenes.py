@@ -12,6 +12,7 @@ UI_DEFAULTS = {
     'es': {'agenda': 'Lo que veremos', 'takeaway': 'IDEA CLAVE', 'sign': '', 'thanks': '¡Gracias por ver!'},
     'en': {'agenda': "What we'll cover", 'takeaway': 'KEY TAKEAWAY', 'sign': '', 'thanks': 'Thanks for watching'},
     'zh': {'agenda': '本期内容', 'takeaway': '本节要点', 'sign': '', 'thanks': '感谢收看'},
+    'ru': {'agenda': 'Что разберём', 'takeaway': 'ГЛАВНОЕ', 'sign': '', 'thanks': 'Спасибо за просмотр'},
 }
 MAX_SECTIONS = 8
 CARD_STRIP = .3      # portrait agenda cards keep this share of their width, on the right, for the pinned note
@@ -254,7 +255,8 @@ def build_end_card(ctx, x0, t):
     return els
 
 
-CREDIT_LINE = {'en': 'Подробнее на сайте — {name}', 'zh': '由 {name} 制作', 'es': 'Hecho con {name}'}
+CREDIT_LINE = {'en': 'Подробнее на сайте — {name}', 'zh': '由 {name} 制作', 'es': 'Hecho con {name}',
+               'ru': 'Подробнее на сайте — {name}'}
 
 
 def build_credit(ctx, x0, t):

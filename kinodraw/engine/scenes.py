@@ -304,7 +304,7 @@ def build_ladder(v, beat, box, ctx):
     ys = [plot_bot - (math.log10(v_) - lo) / (hi - lo) * (plot_bot - plot_top) for v_ in vals]
     axis = ctx.strokes((40, plot_bot - plot_top + 40), [[(20, 10), (20, plot_bot - plot_top + 30)]], color=SOFT_INK, width=4)
     ctx.add(axis, left - 70, plot_top - 20, t0)
-    note = ctx.text({'en': 'log scale', 'es': 'escala logarítmica', 'zh': '对数刻度'}[ctx.lang], 28, color=SOFT_INK)
+    note = ctx.text({'en': 'log scale', 'es': 'escala logarítmica', 'zh': '对数刻度', 'ru': 'лог. шкала'}[ctx.lang], 28, color=SOFT_INK)
     ctx.add(note, left - 88, plot_bot + 22, t0)
     prev = None
     for i, s in enumerate(stops):
@@ -515,7 +515,7 @@ SLOT_BUILDERS = {'cluster': build_cluster, 'quote': build_quote, 'glossary': bui
 
 def load_page_plugins():
     """pages_*.py modules each define BUILDERS = {type: fn} (listed explicitly: frozen apps cannot glob .py files)."""
-    from . import pages_logic, pages_quant, pages_time
-    for mod in (pages_quant, pages_time, pages_logic):
+    from . import pages_logic, pages_media, pages_quant, pages_time
+    for mod in (pages_quant, pages_time, pages_logic, pages_media):
         PAGE_BUILDERS.update(getattr(mod, 'BUILDERS', {}))
     return PAGE_BUILDERS
