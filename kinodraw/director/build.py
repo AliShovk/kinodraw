@@ -130,10 +130,19 @@ def _number(text: str) -> str | None:
     return m.group(0).strip() if m else None
 
 
+def _guess_title(article: str) -> str:
+    for line in article.splitlines():
+        t = line.strip().lstrip('#').strip()
+        if len(t) > 3:
+            return t[:80]
+    return ''
+
+
 def storyboard_from_article(article: str, *, title: str = '', duration: float = 55,
                             aspect: str = '9:16', project_dir=None, history=None,
                             concept=None, structure=None, language: str = 'ru') -> dict:
     """Full storyboard: director block + beats, ready for voice/render."""
+    title = title or _guess_title(article)
     analysis = ai.analyze(article, title)
     history = history if history is not None else (ai.load_history(project_dir) if project_dir else [])
     p = ai.plan(analysis, duration=duration, aspect=aspect, history=history,

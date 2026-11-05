@@ -202,6 +202,18 @@ def cmd_plan(args):
     board = build.write_storyboard(article, project, title=args.title or '', duration=args.duration,
                                    aspect=args.aspect, concept=args.concept, structure=args.structure,
                                    language=args.lang)
+    if getattr(args, 'whiteboard', False):
+        from .integrations import whiteboard
+        if whiteboard.available():
+            logo = project / 'logo.png'
+            whiteboard.install_stock(project, title=args.title or board['title']['ru'],
+                                     subtitle='', logo=logo if logo.is_file() else None)
+            board = whiteboard.apply_to_storyboard(board)
+            (project / 'storyboard.json').write_text(json.dumps(board, ensure_ascii=False, indent=1),
+                                                     encoding='utf-8')
+            print('титул и финал: whiteboard-animator → stock/intro.mp4, stock/outro.mp4')
+        else:
+            print('whiteboard-animate не найден — оставляю титул на KinoDraw')
     d = board['director']
     print(f"концепция: {d['concept']} · структура: {d['narrative_structure']} · сцен: {len(board['scenes'])}")
     for sc in board['scenes']:
@@ -383,6 +395,8 @@ def main(argv=None):
     p.add_argument('--concept', default=None)
     p.add_argument('--structure', default=None)
     p.add_argument('--lang', default='ru')
+    p.add_argument('--whiteboard', action='store_true',
+                   help='intro/outro рисует whiteboard-animator, сцены — KinoDraw')
     p.set_defaults(func=cmd_plan)
     p = sub.add_parser('direct')
     p.add_argument('project')

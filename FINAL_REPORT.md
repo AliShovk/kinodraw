@@ -139,3 +139,22 @@ LLM-провайдеры не подключались в этом этапе: �
 `kinodraw/director/build.py`, `kinodraw/engine/pages_media.py`,
 `tests/test_ai_director.py`, `tests/test_originality.py`,
 `tests/test_storyboard_compat.py`, `tests/test_russian.py`.
+
+## 12. Интеграция с whiteboard-animator (05.11.2026)
+
+Второй движок подключён как источник интро и финала:
+
+- `kinodraw/integrations/whiteboard.py` — собирает карточку 1080×1920 (бумага,
+  заголовок рукописным шрифтом, акцентная линия, логотип при наличии), отдаёт её
+  `whiteboard-animate`, получает mp4 (720×1280, апскейл делает StockReader) и
+  пишет `project/stock/MANIFEST.json` с клипами `intro` и `outro`.
+- Флаг `kinodraw plan article.md project --whiteboard` включает интеграцию:
+  титульный и финальный биты получают `visuals: [{type: 'stock', clip: ...}]`.
+- Рендер, таймлайн, озвучка и субтитры остаются за KinoDraw.
+
+Проверено на ролике A (Open WebUI): интро рисуется движком whiteboard-animator,
+сцены — KinoDraw, финал — снова whiteboard-animator; длительность 66 с.
+
+Ограничения интеграции: whiteboard-animator отдаёт 720p (StockReader растягивает
+до 1080×1920), фон карточки белый, а не бумажный; агенда-страница остаётся пустой,
+если у неё нет визуалов.
