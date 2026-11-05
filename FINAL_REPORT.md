@@ -111,8 +111,8 @@ LLM-провайдеры не подключались в этом этапе: �
 | C — автоматизация (Composio) | `motion_infographic` | `walkthrough` | hero → before_after → browser_window → feature_explosion → flow → data_flow → final_verdict |
 
 Метрики (`ai.variety`): `structure_variety = 1.0`, попарное сходство 0.36–0.42
-(порог пересборки — 0.75). Видео: `/root/kd2/video-a-chat.mp4`,
-`video-b-image.mp4`, `video-c-auto.mp4` (1080×1920, русский голос).
+(порог пересборки — 0.75). Видео (1080×1920, русский голос Silero, 66 / 66 / 67 секунд):
+`/root/kd2/video-a-chat.mp4`, `/root/kd2/video-b-image.mp4`, `/root/kd2/video-c-auto.mp4`.
 
 ## 10. Ограничения, которые остались
 
